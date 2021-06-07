@@ -3,7 +3,7 @@ import { Disclosure } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'utils/constants/routes';
 
-const navigation = [ROUTES.home, ROUTES.settings, ROUTES.settings];
+const navigation = [ROUTES.home, ROUTES.settings, ROUTES.records];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');

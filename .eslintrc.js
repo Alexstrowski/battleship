@@ -4,6 +4,7 @@ module.exports = {
         browser: true,
         es2021: true,
         node: true,
+        jest: true,
     },
     extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier', 'plugin:prettier/recommended'],
     parserOptions: {
@@ -22,6 +23,6 @@ module.exports = {
         ],
         'react/react-in-jsx-scope': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'no-unused-vars': 'warn',
     },
-    parser: 'babel-eslint',
 };
