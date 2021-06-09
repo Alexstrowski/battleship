@@ -2,6 +2,12 @@ import { generateShip, collisionExists, generateShipsByQuantity, getAllShips } f
 
 describe('Tests in gameboard.js', () => {
     const shipLength = 3;
+    const arrayOfShips = [
+        { x: 1, y: 2 },
+        { x: 1, y: 3 },
+        { x: 1, y: 4 },
+        { x: 1, y: 5 },
+    ];
 
     test('Spawn ships horizontally', () => {
         const initialPosition = { x: 3, y: 4, direction: 0 };
@@ -32,13 +38,6 @@ describe('Tests in gameboard.js', () => {
     });
 
     test('There is no collision between ships', () => {
-        const arrayOfShips = [
-            { x: 1, y: 2 },
-            { x: 1, y: 3 },
-            { x: 1, y: 4 },
-            { x: 1, y: 5 },
-        ];
-
         const generatedShip = [
             { x: 3, y: 4 },
             { x: 3, y: 5 },
@@ -50,13 +49,6 @@ describe('Tests in gameboard.js', () => {
     });
 
     test('There is collision between ships', () => {
-        const arrayOfShips = [
-            { x: 1, y: 2 },
-            { x: 1, y: 3 },
-            { x: 1, y: 4 },
-            { x: 1, y: 5 },
-        ];
-
         const generatedShip = [
             { x: 1, y: 5 },
             { x: 2, y: 5 },
@@ -68,13 +60,6 @@ describe('Tests in gameboard.js', () => {
     });
 
     test('Correct number of ships generated', () => {
-        const arrayOfShips = [
-            { x: 1, y: 2 },
-            { x: 1, y: 3 },
-            { x: 1, y: 4 },
-            { x: 1, y: 5 },
-        ];
-
         const ships = generateShipsByQuantity(arrayOfShips, 2, 3);
         expect(ships.length).toBe(6);
     });

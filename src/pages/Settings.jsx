@@ -1,5 +1,7 @@
+import SettingsComponent from 'components/pages/Settings';
+
 const Settings = () => {
-    return <div>Settings</div>;
+    return <SettingsComponent />;
 };
 
 export default Settings;

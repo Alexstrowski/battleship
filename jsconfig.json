@@ -6,7 +6,9 @@
         "jsx": "react",
         "paths": {
             "components/*": ["./components/*"],
-            "utils/*": ["./utils/*"]
+            "utils/*": ["./utils/*"],
+            "context/*": ["./context/*"],
+            "hooks/*": ["./hooks/*"]
         }
     },
     "include": ["src"],
