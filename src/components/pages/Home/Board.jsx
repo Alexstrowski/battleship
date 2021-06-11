@@ -1,16 +1,30 @@
 import BoardRow from './BoardRow';
+import PropTypes from 'prop-types';
 import { getAllShips } from 'utils/gameboard';
 
-const arrayy = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const ships = getAllShips();
-const Board = () => {
+console.log('ships', ships);
+const Board = ({ isGameStarted, setTurnCounter, setBoardHistory }) => {
     return (
         <div className="p-5 bg-blue-400 w-max mt-10">
-            {arrayy.map((i) => (
-                <BoardRow key={i} i={i} ships={ships} />
+            {[...Array(10).keys()].map((row) => (
+                <BoardRow
+                    key={row}
+                    row={row}
+                    ships={ships}
+                    isGameStarted={isGameStarted}
+                    setTurnCounter={setTurnCounter}
+                    setBoardHistory={setBoardHistory}
+                />
             ))}
         </div>
     );
 };
 
 export default Board;
+
+Board.propTypes = {
+    isGameStarted: PropTypes.bool.isRequired,
+    setTurnCounter: PropTypes.func.isRequired,
+    setBoardHistory: PropTypes.func.isRequired,
+};

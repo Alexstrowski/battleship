@@ -1,12 +1,22 @@
 import BoardCell from './BoardCell';
 import PropTypes from 'prop-types';
 
-const BoardRow = ({ i, ships }) => {
+const BoardRow = ({ row, ships, isGameStarted, setTurnCounter, setBoardHistory }) => {
     return (
         <div className="flex">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((j) => {
-                const isShip = ships.some((shipPosition) => shipPosition.x === i && shipPosition.y === j);
-                return <BoardCell key={j} row={i} column={j} ships={isShip} cell={isShip ? 'XXX' : `.`} />;
+            {[...Array(10).keys()].map((column) => {
+                const isShip = ships.some((shipPosition) => shipPosition.x === row && shipPosition.y === column);
+                return (
+                    <BoardCell
+                        key={column}
+                        row={row}
+                        column={column}
+                        isShip={isShip}
+                        isGameStarted={isGameStarted}
+                        setTurnCounter={setTurnCounter}
+                        setBoardHistory={setBoardHistory}
+                    />
+                );
             })}
         </div>
     );
@@ -15,7 +25,9 @@ const BoardRow = ({ i, ships }) => {
 export default BoardRow;
 
 BoardRow.propTypes = {
-    i: PropTypes.number.isRequired,
+    row: PropTypes.number.isRequired,
     ships: PropTypes.any,
-    cell: PropTypes.any,
+    isGameStarted: PropTypes.bool.isRequired,
+    setTurnCounter: PropTypes.func.isRequired,
+    setBoardHistory: PropTypes.func.isRequired,
 };
