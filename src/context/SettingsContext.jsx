@@ -1,13 +1,13 @@
 import { createContext } from 'react';
 import useLocalStorage from 'hooks/useLocalStorage';
 import PropTypes from 'prop-types';
-import { LEVELS } from 'utils/constants/settings';
+import { getLevels, CUSTOM_TURNS_BY_DEFAULT } from 'utils/constants/settings';
 
 const SettingsContext = createContext();
 
 const SettingsProvider = ({ children }) => {
-    const [customTurns, setCustomTurns] = useLocalStorage('customTurns', 45);
-    const [level, setLevel] = useLocalStorage('level', LEVELS[0]);
+    const [customTurns, setCustomTurns] = useLocalStorage('customTurns', CUSTOM_TURNS_BY_DEFAULT);
+    const [level, setLevel] = useLocalStorage('level', getLevels[0]);
 
     const updateCustomTurns = (turns) => {
         setCustomTurns(turns);

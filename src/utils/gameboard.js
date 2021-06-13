@@ -1,11 +1,14 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const generateShip = (shipLength, initialPosition) => {
     const { x, y, direction } = initialPosition;
     const ships = [];
+    const id = uuidv4();
     for (let index = 0; index <= shipLength - 1; index++) {
         if (direction === 0) {
-            ships.push({ x, y: y + index });
+            ships.push({ x, y: y + index, isHit: false, isSunken: false, type: shipLength, id });
         } else {
-            ships.push({ x: x + index, y });
+            ships.push({ x: x + index, y, isHit: false, isSunken: false, type: shipLength, id });
         }
     }
     return ships;
@@ -60,4 +63,15 @@ export const getAllShips = () => {
 
 const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+export const updateSunkStatus = (allShips, id) => {
+    let ships = allShips.filter((ship) => ship.id === id);
+    const isSunken = ships.every((ship) => ship.isHit === true);
+    if (!isSunken) return allShips;
+    ships = allShips.map((ship) => {
+        return ship.id === id ? { ...ship, isSunken: true } : ship;
+    });
+
+    return ships;
 };

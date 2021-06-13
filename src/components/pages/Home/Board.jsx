@@ -1,30 +1,26 @@
 import BoardRow from './BoardRow';
-import PropTypes from 'prop-types';
-import { getAllShips } from 'utils/gameboard';
 
-const ships = getAllShips();
-console.log('ships', ships);
-const Board = ({ isGameStarted, setTurnCounter, setBoardHistory }) => {
+const boardDimension = [...Array(10).keys()];
+const Board = (props) => {
     return (
-        <div className="p-5 bg-blue-400 w-max mt-10">
-            {[...Array(10).keys()].map((row) => (
-                <BoardRow
-                    key={row}
-                    row={row}
-                    ships={ships}
-                    isGameStarted={isGameStarted}
-                    setTurnCounter={setTurnCounter}
-                    setBoardHistory={setBoardHistory}
-                />
+        <div className="p-5 bg-blue-400 w-max mt-10 pt-12 pr-12">
+            {boardDimension.map((row) => (
+                <div key={row} className="flex">
+                    <div className="h-20 w-10 flex items-center text-yellow-300 text-2xl font-bold">
+                        {String.fromCharCode(65 + row)}
+                    </div>
+                    <BoardRow row={row} {...props} />
+                </div>
             ))}
+            <div className="flex ml-10">
+                {boardDimension.map((row) => (
+                    <div key={row} className="h-10 w-20 mr-1 flex justify-center text-yellow-300 text-2xl font-bold">
+                        {row + 1}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
 export default Board;
-
-Board.propTypes = {
-    isGameStarted: PropTypes.bool.isRequired,
-    setTurnCounter: PropTypes.func.isRequired,
-    setBoardHistory: PropTypes.func.isRequired,
-};

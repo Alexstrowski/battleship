@@ -1,4 +1,10 @@
-import { generateShip, collisionExists, generateShipsByQuantity, getAllShips } from 'utils/gameboard.js';
+import {
+    generateShip,
+    collisionExists,
+    generateShipsByQuantity,
+    getAllShips,
+    updateSunkStatus,
+} from 'utils/gameboard.js';
 
 describe('Tests in gameboard.js', () => {
     const shipLength = 3;
@@ -11,23 +17,27 @@ describe('Tests in gameboard.js', () => {
 
     test('Spawn ships horizontally', () => {
         const initialPosition = { x: 3, y: 4, direction: 0 };
-        const expectedShip = [
-            { x: 3, y: 4 },
-            { x: 3, y: 5 },
-            { x: 3, y: 6 },
+        let expectedShip = [
+            { x: 3, y: 4, isHit: false, isSunken: false, type: 3 },
+            { x: 3, y: 5, isHit: false, isSunken: false, type: 3 },
+            { x: 3, y: 6, isHit: false, isSunken: false, type: 3 },
         ];
         const ships = generateShip(shipLength, initialPosition);
+        const id = ships[0].id;
+        expectedShip = expectedShip.map((ship) => ({ ...ship, id }));
         expect(ships).toEqual(expectedShip);
     });
 
     test('Spawn ships vertically', () => {
         const initialPosition = { x: 3, y: 4, direction: 1 };
-        const expectedShip = [
-            { x: 3, y: 4 },
-            { x: 4, y: 4 },
-            { x: 5, y: 4 },
+        let expectedShip = [
+            { x: 3, y: 4, isHit: false, isSunken: false, type: 3 },
+            { x: 4, y: 4, isHit: false, isSunken: false, type: 3 },
+            { x: 5, y: 4, isHit: false, isSunken: false, type: 3 },
         ];
         const ships = generateShip(shipLength, initialPosition);
+        const id = ships[0].id;
+        expectedShip = expectedShip.map((ship) => ({ ...ship, id }));
         expect(ships).toEqual(expectedShip);
     });
 
@@ -66,7 +76,168 @@ describe('Tests in gameboard.js', () => {
 
     test('Correct number of all ships', () => {
         const ships = getAllShips();
-        console.log(ships);
         expect(ships.length).toBe(20);
+    });
+
+    test('Check if all parts of the ship were hit', () => {
+        const allShips = [
+            {
+                x: 1,
+                y: 3,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 4,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 5,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 6,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 6,
+                y: 1,
+                isHit: false,
+                isSunken: false,
+                id: 'fcda2649-59a2-410f-ba16-092c671ee9fb',
+            },
+        ];
+
+        const expectedShips = [
+            {
+                x: 1,
+                y: 3,
+                isHit: true,
+                isSunken: true,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 4,
+                isHit: true,
+                isSunken: true,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 5,
+                isHit: true,
+                isSunken: true,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 6,
+                isHit: true,
+                isSunken: true,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 6,
+                y: 1,
+                isHit: false,
+                isSunken: false,
+                id: 'fcda2649-59a2-410f-ba16-092c671ee9fb',
+            },
+        ];
+
+        const ships = updateSunkStatus(allShips, 'f0ffc56d-077a-4c26-9e27-6f0909288370');
+        expect(ships).toEqual(expectedShips);
+    });
+
+    test('Check if all parts of the ship were not hit', () => {
+        const allShips = [
+            {
+                x: 1,
+                y: 3,
+                isHit: false,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 4,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 5,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 6,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 6,
+                y: 1,
+                isHit: false,
+                isSunken: false,
+                id: 'fcda2649-59a2-410f-ba16-092c671ee9fb',
+            },
+        ];
+
+        const expectedShips = [
+            {
+                x: 1,
+                y: 3,
+                isHit: false,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 4,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 5,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 1,
+                y: 6,
+                isHit: true,
+                isSunken: false,
+                id: 'f0ffc56d-077a-4c26-9e27-6f0909288370',
+            },
+            {
+                x: 6,
+                y: 1,
+                isHit: false,
+                isSunken: false,
+                id: 'fcda2649-59a2-410f-ba16-092c671ee9fb',
+            },
+        ];
+
+        const ships = updateSunkStatus(allShips, 'f0ffc56d-077a-4c26-9e27-6f0909288370');
+        expect(ships).toEqual(expectedShips);
     });
 });
