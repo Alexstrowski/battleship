@@ -6,10 +6,15 @@ console.log(boardHistory);
 const Records = () => {
     return (
         <div className="container mx-auto">
-            {boardHistory.map((ship, key) => {
+            {boardHistory.map((bd, key) => {
                 return (
-                    <div className="flex justify-center" key={key}>
-                        <Board isGameStarted={false} ships={ship} isRecord />
+                    <div className="flex flex-col items-center mt-10" key={key}>
+                        <div className="text-yellow-300 text-2xl font-bold">
+                            Dificulty: {bd.level.shortName} - N° Shots: {bd.level.turns - bd.turnCounter}
+                        </div>
+                        <div>
+                            <Board isGameStarted={false} ships={bd.ships} shotsMissed={bd.shotsMissed} isRecord />
+                        </div>
                     </div>
                 );
             })}

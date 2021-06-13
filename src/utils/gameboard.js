@@ -22,6 +22,7 @@ const generatePosition = (shipLength) => {
     return { x, y, direction };
 };
 
+// TODO: Refactor
 export const collisionExists = (arrayOfShips, generatedShip) => {
     const arrayBoolean = arrayOfShips.map((ship) =>
         generatedShip.some((newShip) => ship.x === newShip.x && ship.y === newShip.y),

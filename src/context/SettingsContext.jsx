@@ -4,20 +4,21 @@ import PropTypes from 'prop-types';
 import { getLevels, CUSTOM_TURNS_BY_DEFAULT } from 'utils/constants/settings';
 
 const SettingsContext = createContext();
+const levels = getLevels();
 
 const SettingsProvider = ({ children }) => {
     const [customTurns, setCustomTurns] = useLocalStorage('customTurns', CUSTOM_TURNS_BY_DEFAULT);
-    const [level, setLevel] = useLocalStorage('level', getLevels[0]);
+    const [defaultLevel, setDefaultLevel] = useLocalStorage('level', levels[0]);
 
     const updateCustomTurns = (turns) => {
         setCustomTurns(turns);
     };
 
     const updateLevel = (level) => {
-        setLevel(level);
+        setDefaultLevel(level);
     };
 
-    const data = { customTurns, level, updateCustomTurns, updateLevel };
+    const data = { customTurns, defaultLevel, updateCustomTurns, updateLevel };
 
     return <SettingsContext.Provider value={data}>{children}</SettingsContext.Provider>;
 };

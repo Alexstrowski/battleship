@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in <Home /> Must render <Home /> correctly 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "customTurns": 45,
+      "defaultLevel": Object {
+        "id": 1,
+        "name": "Easy - Infinity turns",
+        "shortName": "Easy",
+        "turns": 200,
+      },
+      "updateCustomTurns": [Function],
+      "updateLevel": [Function],
+    }
+  }
+>
+  <Home />
+</ContextProvider>
+`;

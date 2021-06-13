@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Board from './Board';
 import StartGamePanel from './StartGamePanel';
 import BoardInfo from './BoardInfo';
-import { LEVELS } from 'utils/constants/settings';
+import { SettingsContext } from 'context/SettingsContext';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { getAllShips } from 'utils/gameboard';
 
@@ -14,29 +14,41 @@ const messages = {
 const randomShips = getAllShips();
 
 const Home = () => {
+    const { defaultLevel } = useContext(SettingsContext);
     const [ships, setShips] = useState(randomShips);
+    const [shotsMissed, setShotsMissed] = useState([]);
     const [isGameStarted, setIsGameStarted] = useState(false);
-    const [level, setLevel] = useState(LEVELS[0]);
-    const [turnCounter, setTurnCounter] = useState(LEVELS[0].turns);
+    const [level, setLevel] = useState(defaultLevel);
+    const [turnCounter, setTurnCounter] = useState(defaultLevel.turns);
     const [localStorageBoardHistory, setLocalStorageBoardHistory] = useLocalStorage('boardHistory', []);
     const [showStartPanel, setShowStartPanel] = useState(true);
     const [gameFinishedMessage, setGameFinishedMessage] = useState(messages.none);
-
-    console.log(ships);
 
     const validateEndGame = () => {
         const isAllShipsDestroyed = ships.every((ship) => ship.isSunken === true);
         if (isAllShipsDestroyed) {
             setGameFinishedMessage(messages.win);
             setIsGameStarted(false);
-            setLocalStorageBoardHistory([...localStorageBoardHistory, ships]);
+            const boardHistory = {
+                ships,
+                shotsMissed,
+                level,
+                turnCounter,
+            };
+            setLocalStorageBoardHistory([...localStorageBoardHistory, boardHistory]);
             return;
         }
 
         if (turnCounter === 0) {
             setGameFinishedMessage(messages.lose);
             setIsGameStarted(false);
-            setLocalStorageBoardHistory([...localStorageBoardHistory, ships]);
+            const boardHistory = {
+                ships,
+                shotsMissed,
+                level,
+                turnCounter,
+            };
+            setLocalStorageBoardHistory([...localStorageBoardHistory, boardHistory]);
             return;
         }
     };
@@ -58,6 +70,8 @@ const Home = () => {
                     ships={ships}
                     setShips={setShips}
                     isRecord={false}
+                    shotsMissed={shotsMissed}
+                    setShotsMissed={setShotsMissed}
                 />
 
                 {showStartPanel ? (
