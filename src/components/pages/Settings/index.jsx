@@ -10,19 +10,23 @@ const Settings = () => {
     };
 
     const handleChangeTurns = (e) => {
-        updateCustomTurns(e.target.value);
+        let value = e.target.value.replace(/\D/g, '');
+        if (value === '0') {
+            value = 1;
+        }
+        updateCustomTurns(value);
     };
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto w-2/6">
             <Card>
                 <div className="flex flex-auto mb-12">
-                    <div className="w-6/12 mr-20 text-xl font-bold">Default difficulty</div>
+                    <div className="w-6/12 mr-20 text-xl font-bold">Default difficulty:</div>
                     <div className="w-6/12 mr-20">
                         <Select dataList={getLevels()} selected={defaultLevel} onChange={handleChangeLevel} />
                     </div>
                 </div>
                 <div className="flex flex-auto mb-12">
-                    <div className="w-6/12 mr-20 text-xl font-bold">Default shifts</div>
+                    <div className="w-6/12 mr-20 text-xl font-bold">Turns by default: </div>
                     <div className="w-6/12 mr-20">
                         <Input type="text" value={customTurns} onChange={handleChangeTurns} />
                     </div>

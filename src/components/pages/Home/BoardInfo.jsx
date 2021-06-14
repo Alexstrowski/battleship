@@ -16,11 +16,11 @@ const BoardInfo = ({ level, turns, isGameStarted, setShowStartPanel, gameFinishe
 
     return (
         <div className="flex flex-col items-center rounded border-4 border-blue-600 m-10 p-10 h-full w-1/5">
-            <div className="text-3xl font-bold mb-2">Difficulty: </div>
+            <p className="text-3xl font-bold mb-2">Difficulty: </p>
             <div className="text-3xl font-bold mb-10">
                 {level.shortName} {iconLevels[level.shortName]}
             </div>
-            <div className="text-3xl font-bold mb-2">Turns: </div>
+            <p className="text-3xl font-bold mb-2">Turns: </p>
             <div className="text-4xl font-bold mb-10">{turns}</div>
             <div className="flex w-full justify-around mb-2">
                 <div className="flex items-center">

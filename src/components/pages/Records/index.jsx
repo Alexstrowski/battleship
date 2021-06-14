@@ -1,17 +1,21 @@
 import Board from '../Home/Board';
 
-const ships = window.localStorage.getItem('boardHistory');
-const boardHistory = ships ? JSON.parse(ships) : [];
-console.log(boardHistory);
 const Records = () => {
+    const boardHistoryLocalStorage = window.localStorage.getItem('boardHistory');
+    const boardHistory = boardHistoryLocalStorage ? JSON.parse(boardHistoryLocalStorage) : [];
     return (
         <div className="container mx-auto">
             {boardHistory.map((bd, key) => {
                 return (
                     <div className="flex flex-col items-center mt-10" key={key}>
-                        <div className="text-yellow-300 text-2xl font-bold">
-                            Dificulty: {bd.level.shortName} - N° Shots: {bd.level.turns - bd.turnCounter}
+                        <div className="flex w-6/12 justify-between">
+                            <div className="text-yellow-400 text-2xl font-bold">Difficulty: {bd.level.shortName}</div>
+                            <div className="text-yellow-400 text-2xl font-bold">N° Turns: {bd.level.turns}</div>
+                            <div className="text-yellow-400 text-2xl font-bold">
+                                N° Shots: {bd.level.turns - bd.turnCounter}
+                            </div>
                         </div>
+
                         <div>
                             <Board isGameStarted={false} ships={bd.ships} shotsMissed={bd.shotsMissed} isRecord />
                         </div>

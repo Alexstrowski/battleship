@@ -17,7 +17,9 @@ const StartGamePanel = ({ initGame, level, chooseLevel, setShowStartPanel }) => 
             <div className="mb-4">
                 <Select dataList={getLevels()} selected={level} onChange={handleChangeLevel} />
             </div>
-            <Button onClick={handleStartGame}>Start!</Button>
+            <Button id="start-button" onClick={handleStartGame}>
+                Start!
+            </Button>
         </div>
     );
 };
