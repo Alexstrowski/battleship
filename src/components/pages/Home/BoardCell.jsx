@@ -96,6 +96,7 @@ const BoardCell = ({
         <div
             className="md:h-20 md:w-20 h-10 w-10 md:p-4 bg-white border-white border-2 mr-1 mb-1 rounded-md cursor-pointer"
             onClick={onClickCell}
+            id="board-cell"
         >
             {!isRecord ? renderCell() : renderCellIsRecord()}
         </div>

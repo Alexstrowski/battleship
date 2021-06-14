@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in <Records /> Must render <Records /> correctly 1`] = `
+<div
+  className="container mx-auto"
+/>
+`;

@@ -1,12 +1,9 @@
-import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Home from 'components/pages/Home/Home';
+import Home from 'components/pages/Home';
 import { SettingsProvider } from 'context/SettingsContext';
 
 describe('Tests in <Home />', () => {
     let wrapper;
-    const setState = jest.fn();
-    const mockCallBack = jest.fn();
 
     beforeEach(() => {
         wrapper = shallow(
@@ -32,5 +29,15 @@ describe('Tests in <Home />', () => {
         const turnsText = wrapperMount.find('p').at(1).text().trim();
         expect(difficultyText).toBe('Difficulty:');
         expect(turnsText).toBe('Turns:');
+    });
+
+    test('The table must have 100 cells', () => {
+        let wrapperMount = mount(
+            <SettingsProvider>
+                <Home />
+            </SettingsProvider>,
+        );
+        const boardCell = wrapperMount.find('#board-cell');
+        expect(boardCell.length).toBe(100);
     });
 });
