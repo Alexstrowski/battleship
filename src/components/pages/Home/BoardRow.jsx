@@ -18,5 +18,5 @@ export default BoardRow;
 
 BoardRow.propTypes = {
     row: PropTypes.number.isRequired,
-    ships: PropTypes.any,
+    ships: PropTypes.array.isRequired,
 };

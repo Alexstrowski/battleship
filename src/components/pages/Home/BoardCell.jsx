@@ -44,38 +44,60 @@ const BoardCell = ({
         isSelected(true);
     };
 
+    const renderCell = () => {
+        if (isSunken) {
+            return (
+                <div className="w-full h-full">
+                    <img src={SVG[`sunken_ship_${ship.type}`]}></img>
+                </div>
+            );
+        }
+
+        if (selected && isShip) {
+            return (
+                <div className="w-full h-full">
+                    <img src={SVG.explosion}></img>
+                </div>
+            );
+        }
+
+        if (selected && !isShip) {
+            return <div className="bg-gray-300 w-full h-full"></div>;
+        }
+
+        return '';
+    };
+
+    const renderCellIsRecord = () => {
+        if (ship && ship.isSunken) {
+            return (
+                <div className="w-full h-full">
+                    <img src={SVG[`sunken_ship_${ship.type}`]}></img>
+                </div>
+            );
+        }
+
+        if (ship && ship.isHit) {
+            return (
+                <div className="w-full h-full">
+                    <img src={SVG.explosion}></img>
+                </div>
+            );
+        }
+
+        if (selected && !isShip) {
+            return <div className="bg-gray-300 w-full h-full"></div>;
+        }
+
+        return '';
+    };
+
     return (
         <div
             className="md:h-20 md:w-20 h-10 w-10 md:p-4 bg-white border-white border-2 mr-1 mb-1 rounded-md cursor-pointer"
             onClick={onClickCell}
         >
-            {!isRecord ? (
-                isSunken ? (
-                    <div className="w-full h-full">
-                        <img src={SVG[`sunken_ship_${ship.type}`]}></img>
-                    </div>
-                ) : selected && isShip ? (
-                    <div className="w-full h-full">
-                        <img src={SVG.explosion}></img>
-                    </div>
-                ) : selected && !isShip ? (
-                    <div className="bg-gray-300 w-full h-full"></div>
-                ) : (
-                    ''
-                )
-            ) : ship && ship.isSunken ? (
-                <div className="w-full h-full">
-                    <img src={SVG[`sunken_ship_${ship.type}`]}></img>
-                </div>
-            ) : ship && ship.isHit ? (
-                <div className="w-full h-full">
-                    <img src={SVG.explosion}></img>
-                </div>
-            ) : selected && !isShip ? (
-                <div className="bg-gray-300 w-full h-full"></div>
-            ) : (
-                ''
-            )}
+            {!isRecord ? renderCell() : renderCellIsRecord()}
         </div>
     );
 };
@@ -89,7 +111,7 @@ BoardCell.propTypes = {
     isGameStarted: PropTypes.bool.isRequired,
     setTurnCounter: PropTypes.func,
     ship: PropTypes.object,
-    ships: PropTypes.any,
+    ships: PropTypes.array,
     setShips: PropTypes.func,
     isRecord: PropTypes.bool.isRequired,
     shotsMissed: PropTypes.array,

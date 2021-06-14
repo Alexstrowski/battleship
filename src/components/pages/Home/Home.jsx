@@ -28,29 +28,26 @@ const Home = () => {
         const isAllShipsDestroyed = ships.every((ship) => ship.isSunken === true);
         if (isAllShipsDestroyed) {
             setGameFinishedMessage(messages.win);
-            setIsGameStarted(false);
-            const boardHistory = {
-                ships,
-                shotsMissed,
-                level,
-                turnCounter,
-            };
-            setLocalStorageBoardHistory([...localStorageBoardHistory, boardHistory]);
+            onFinishGame();
             return;
         }
 
         if (turnCounter === 0) {
             setGameFinishedMessage(messages.lose);
-            setIsGameStarted(false);
-            const boardHistory = {
-                ships,
-                shotsMissed,
-                level,
-                turnCounter,
-            };
-            setLocalStorageBoardHistory([...localStorageBoardHistory, boardHistory]);
+            onFinishGame();
             return;
         }
+    };
+
+    const onFinishGame = () => {
+        setIsGameStarted(false);
+        const boardHistory = {
+            ships,
+            shotsMissed,
+            level,
+            turnCounter,
+        };
+        setLocalStorageBoardHistory([...localStorageBoardHistory, boardHistory]);
     };
 
     useEffect(() => {

@@ -1,5 +1,4 @@
 import { Disclosure } from '@headlessui/react';
-//import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'utils/constants/routes';
 

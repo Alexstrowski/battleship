@@ -54,7 +54,7 @@ const BoardInfo = ({ level, turns, isGameStarted, setShowStartPanel, gameFinishe
 export default BoardInfo;
 
 BoardInfo.propTypes = {
-    level: PropTypes.any,
+    level: PropTypes.object.isRequired,
     turns: PropTypes.number.isRequired,
     isGameStarted: PropTypes.bool.isRequired,
     setShowStartPanel: PropTypes.func.isRequired,
