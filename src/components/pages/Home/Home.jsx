@@ -8,7 +8,7 @@ import { getAllShips } from 'utils/gameboard';
 
 const messages = {
     win: { message: 'You destroyed all the ships, you win.', color: 'text-green-500' },
-    lose: { message: 'You did not destroy all the ships, you lose.', color: 'text-red-500' },
+    lose: { message: 'You did not destroy all the ships, you lost.', color: 'text-red-500' },
     none: { message: '', color: '' },
 };
 const randomShips = getAllShips();
